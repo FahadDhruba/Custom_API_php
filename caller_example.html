@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+<head>
+  <title>API Calling</title>
+</head>
+<body>
+  <h1>API Calling</h1>
+  <p>Random Password: <span id="output"></span></p>
+
+  <!-- Get the API response -->
+  <script>
+    //calling an api that will Return 10 digit password
+    fetch('https://api.fahads.xyz/api.php?len=10') 
+      .then(response => response.json())
+      .then(data => {
+        if (data.error) {
+          // Display the error message if an error was returned
+          document.getElementById('output').innerHTML = data.error;
+        } else {
+          // Display the number if it was returned
+          document.getElementById('output').innerHTML = data.password;
+        }
+      });
+
+  </script>
+</body>
+</html>
