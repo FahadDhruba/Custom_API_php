@@ -1,25 +1,60 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <title>API Calling</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random Password Genarator via API</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
-  <h1>API Calling</h1>
-  <p>Random Password: <span id="output"></span></p>
+  
+  <section class="text-gray-600 body-font relative">
+    <div class="container px-5 py-24 mx-auto">
+      <div class="flex flex-col text-center w-full mb-12">
+        <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900">Random Password Genarator via API</h1>
+      </div>
+      <div class="lg:w-1/2 md:w-2/3 mx-auto">
+        <div class="flex flex-wrap -m-2">
+          <div class="p-2 w-full">
+            <div class="relative">
+              <label for="name" class="leading-7 text-sm text-gray-600">Random Password</label>
+              <input type="text" id="output" name="output" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+            </div>
+          </div>
+          <div class="p-2 w-full">
+            <button id="clipboard" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Copy</button>
+          </div>
+          <div class="p-2 w-full pt-8 mt-8 border-t border-gray-200 text-center">
+            <a class="text-indigo-500">&#169 Fahad Dhruba</a>
+            <br>
+            <a class="text-indigo-500">dhruba.fahad2004@gmail.com</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <!-- Get the API response -->
+
   <script>
+
+    const clipboard = document.getElementById("clipboard");
     //calling an api that will Return 10 digit password
     fetch('https://api.fahads.xyz/api.php?len=10') 
       .then(response => response.json())
       .then(data => {
         if (data.error) {
           // Display the error message if an error was returned
-          document.getElementById('output').innerHTML = data.error;
+          document.getElementById('output').value = data.error;
         } else {
           // Display the number if it was returned
-          document.getElementById('output').innerHTML = data.password;
+          document.getElementById('output').value = data.password;
         }
+      });
+    
+      clipboard.addEventListener("click", () => {
+        navigator.clipboard.writeText(document.getElementById('output').value);
+        document.getElementById("clipboard").innerHTML="Copied!";
       });
 
   </script>
